@@ -11,4 +11,10 @@ public class Asserts {
 		}
 	}
 	
+	public static void notFalse(boolean bool, String message){
+		if(!bool){
+			throw new IllegalArgumentException(message);
+		}
+	}
+	
 }
