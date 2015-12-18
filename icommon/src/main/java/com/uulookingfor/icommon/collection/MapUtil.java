@@ -11,26 +11,26 @@ import lombok.NonNull;
  * @author suxiong.sx
  * 
  */
-public class MapUtil<T, Q> {
+public class MapUtil<K, V> {
 	
-	public static <T, Q> Map<Q, List<T>> splitToMap(
-			@NonNull List<T> list, 
-			@NonNull SplitCallBack<T, Q> callBack){
+	public static <K, V> Map<K, List<V>> splitToMap(
+			@NonNull List<V> list, 
+			@NonNull SplitCallBack<K, V> callBack){
 		
-		Map<Q, List<T>> ret = new HashMap<Q, List<T>>();
+		Map<K, List<V>> ret = new HashMap<K, List<V>>();
 		
-		for(T t : list){
-			if(t == null){
+		for(V val : list){
+			if(val == null){
 				throw new RuntimeException("list contain null");
 			}
 			
-			Q key = callBack.genKey(t);
+			K key = callBack.genKey(val);
 			
 			if(ret.get(key) != null){
-				ret.get(key).add(t);
+				ret.get(key).add(val);
 			}else{
-				List<T> newList = new ArrayList<T>();
-				newList.add(t);
+				List<V> newList = new ArrayList<V>();
+				newList.add(val);
 				
 				ret.put(key, newList);
 			}
@@ -39,22 +39,22 @@ public class MapUtil<T, Q> {
 		return ret;
 	}
 	
-	public static interface SplitCallBack<T, Q>{
+	public static interface SplitCallBack<K, V>{
 		
-		Q genKey(T t);
+		K genKey(V val);
 	}
 	
-	public static <Q, T> Map<Q, T> mergeBySameKey(List<T> list, MergeCallback<T, Q> callback){
+	public static <K, V> Map<K, V> mergeBySameKey(List<V> list, MergeCallback<K, V> callback){
 		
-		Map<Q, T> retMap = new HashMap<Q, T>();
+		Map<K, V> retMap = new HashMap<K, V>();
 		
-		for(T obj : list) {
+		for(V obj : list) {
 			if(obj == null){
 				continue;
 			}
-			Q key = callback.genKey(obj);
+			K key = callback.genKey(obj);
 			if(retMap.containsKey(key)){
-				callback.merge(retMap.get(key), obj);
+				retMap.put(key, callback.merge(retMap.get(key), obj));
 			} else {
 				retMap.put(key, obj);
 			}
@@ -64,12 +64,10 @@ public class MapUtil<T, Q> {
 		return retMap;
 	}
 	
-	public static interface MergeCallback<T, Q>{
-		Q genKey(T obj);
-		T merge(T dst, T src);
+	public static interface MergeCallback<K, V>{
+		K genKey(V obj);
+		V merge(V oldOne, V newOne);
 	}
 	
-	public static void main(String[] args){
-		
-	}
+	
 }
