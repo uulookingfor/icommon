@@ -39,7 +39,7 @@ public class ByteBufferBlockingQueue {
 		return buffer;
 	}
 	
-	private ByteBufferBlockingQueue(int capacity, int byteBufferSize){
+	public ByteBufferBlockingQueue(int capacity, int byteBufferSize){
 		
 		byteBuffs = new ArrayBlockingQueue<ByteBuffer>(capacity);
 		
