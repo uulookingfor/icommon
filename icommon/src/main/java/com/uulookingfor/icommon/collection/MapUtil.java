@@ -21,7 +21,7 @@ public class MapUtil<K, V> {
 		
 		for(V val : list){
 			if(val == null){
-				throw new RuntimeException("list contain null");
+				throw new RuntimeException("list contain null element");
 			}
 			
 			K key = callBack.genKey(val);
