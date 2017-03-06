@@ -11,7 +11,7 @@
   <groupId>com.uulookingfor</groupId>
   <artifactId>icommon</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <name>icommon</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -32,6 +32,12 @@
     	<artifactId>fastjson</artifactId>
     	<version>1.2.12</version>
     	<scope>provided</scope>
+	</dependency>
+	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-core</artifactId>
+  		<version>4.2.6.RELEASE</version>
+  		<scope>provided</scope>
 	</dependency>
 
   </dependencies>
